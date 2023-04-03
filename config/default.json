@@ -1,0 +1,20 @@
+{
+  "PORT": "8080",
+  "MYSQL": {
+    "host": "127.0.0.1",
+    "user": "root",
+    "password": "1679",
+    "database": "demo"
+  },
+  "JWT": {
+    "secret": "abcd",
+    "expires": "1d"
+  },
+  "SESSION": {
+    "secret": "abcd",
+    "resave": true,
+    "saveUninitialized": true,
+    "name": "token",
+    "maxAge": 1
+  }
+}

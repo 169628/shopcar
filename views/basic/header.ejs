@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <p>我是header</p>
+    <a href="/login" id="login">登入</a
+    ><a href="/index" id="logout" onclick="logout()">登出</a>
+    <button onclick="shopCar()">購物車(0)</button>
+    <script>
+      //全頁預備、依localStorage顯示登入登出
+      $(document).ready(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          $("#login").show();
+          $("#logout").hide();
+        } else {
+          $("#logout").show();
+          $("#login").hide();
+        }
+      });
+      //登出
+      function logout() {
+        localStorage.removeItem("token");
+        axios
+          .get("/api/logout")
+          .then((res) => {
+            if (res.status === 200) {
+              alert("已成功登出!");
+            }
+          })
+          .catch((err) => {
+            alert("登出失敗!");
+          });
+      }
+      //購物車
+      function shopCar() {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("請先登入");
+          location.href = "/login";
+        } else {
+          location.href = "/car/12"; //暫訂
+        }
+      }
+    </script>
+  </body>
+</html>

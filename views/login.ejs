@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title><%-title%></title>
+  </head>
+  <body>
+    <h1>登入畫面</h1>
+    <div>
+      <label for="account">帳號</label>
+      <input type="text" id="account" placeholder="請輸入帳號" />
+    </div>
+    <div>
+      <label for="password">密碼</label>
+      <input type="text" id="password" placeholder="請輸入密碼" />
+    </div>
+    <div>
+      <button onclick="login()">登入</button>
+      <a href="/register">註冊</a>
+    </div>
+    <script>
+      function login() {
+        const account = {
+          account: $("#account").val(),
+          password: $("#password").val(),
+        };
+        axios
+          .post("/api/login", account)
+          .then((res) => {
+            if (res.status === 200) {
+              const id = res.data.id;
+              localStorage.setItem("token", JSON.stringify(res.data.token));
+              alert("登入成功!");
+              location.href = `/index/${id}`;
+            }
+          })
+          .catch((err) => {
+            alert("登入失敗，請重新登入!");
+            location.reload();
+          });
+      }
+    </script>
+  </body>
+</html>
